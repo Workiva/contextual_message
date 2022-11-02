@@ -10,5 +10,5 @@ class ContextualMessage {
   ContextualMessage(this.message, {this.context});
 
   @override
-  String toString() => this.message;
+  String toString() => message;
 }
