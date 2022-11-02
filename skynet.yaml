@@ -37,8 +37,8 @@ image: drydock.workiva.net/workiva/dart_unit_test_image:1
 size: large
 timeout: eternal
 
-artifacts: /testing/session_mfe_service/test-reports
-test-reports: /testing/session_mfe_service/test-reports
+artifacts: /testing/test-reports
+test-reports: /testing/test-reports
 
 scripts:
   - merge_branch.sh master
@@ -54,8 +54,8 @@ image: drydock.workiva.net/workiva/dart_unit_test_image:1
 size: large
 timeout: eternal
 
-artifacts: /testing/session_mfe_service/test-reports
-test-reports: /testing/session_mfe_service/test-reports
+artifacts: /testing/test-reports
+test-reports: /testing/test-reports
 
 scripts:
   - merge_branch.sh master
