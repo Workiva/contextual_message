@@ -1,7 +1,6 @@
 @TestOn('vm')
-import 'package:test/test.dart';
-
 import 'package:contextual_message/contextual_message.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('ContextualMessage', () {
