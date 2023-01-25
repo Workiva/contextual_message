@@ -1,7 +1,7 @@
 name: standard-dart-checks
 description: Quality checks (analyze, format, dependency validator)
 contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart2_base_image:0.0.0-dart2.18.7
+image: drydock.workiva.net/workiva/dart2_base_image:1
 size: large
 timeout: eternal
 
@@ -18,7 +18,7 @@ name: semver-audit
 description: Runs the semver-audit tool to check for minor and major changes
 contact: 'Frontend Architecture / #support-frontend-architecture'
 
-image: drydock.workiva.net/workiva/dart2_base_image:0.0.0-dart2.18.7
+image: drydock.workiva.net/workiva/dart2_base_image:1
 size: small
 timeout: 300
 
@@ -33,7 +33,7 @@ scripts:
 name: unit-tests-dev
 description: Runs unit tests compiled with DDC
 contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart_unit_test_image:0.0.0-dart2.18.7
+image: drydock.workiva.net/workiva/dart_unit_test_image:1
 size: large
 timeout: eternal
 
@@ -50,7 +50,7 @@ scripts:
 name: unit-tests-release
 description: Runs unit tests compiled with dart2js
 contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart_unit_test_image:0.0.0-dart2.18.7
+image: drydock.workiva.net/workiva/dart_unit_test_image:1
 size: large
 timeout: eternal
 
