@@ -6,7 +6,7 @@ void main() {
   test('ContextualMessage', () {
     final message = ContextualMessage('mathematics', context: {'2+2': '4'});
     expect(message.message, 'mathematics');
-    expect(message.context.containsKey('2+2'), isTrue);
-    expect(message.context['2+2'], '4');
+    expect(message.context?.containsKey('2+2'), isTrue);
+    expect(message.context?['2+2'], '4');
   });
 }

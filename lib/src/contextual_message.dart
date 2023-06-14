@@ -18,7 +18,7 @@ class ContextualMessage {
   String message;
 
   /// Optional context map, used for including additional data.
-  Map<String, dynamic> context;
+  Map<String, dynamic>? context;
 
   /// Returns instance of ContextualMessage.
   ContextualMessage(this.message, {this.context});
