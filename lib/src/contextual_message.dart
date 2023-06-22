@@ -21,7 +21,7 @@ class ContextualMessage {
   Map<String, dynamic> context;
 
   /// Returns instance of ContextualMessage.
-  ContextualMessage(this.message, {this.context});
+  ContextualMessage(this.message, {this.context = const {}});
 
   @override
   String toString() => message;
