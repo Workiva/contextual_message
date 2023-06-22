@@ -1,5 +1,5 @@
 name: contextual_message
-version: 1.0.4
+version: 1.0.5
 description: Provides a data type useful for contextual logging
 documentation: https://github.com/Workiva/contextual_message
 homepage: https://github.com/Workiva/contextual_message
