@@ -1,7 +1,7 @@
 name: standard-dart-checks
 description: Quality checks (analyze, format, dependency validator)
 contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart2_base_image:1
+image: drydock.workiva.net/workiva/dart2_base_image:0.0.0-dart2.18.7gha3
 size: large
 timeout: eternal
 
@@ -18,7 +18,7 @@ name: semver-audit
 description: Runs the semver-audit tool to check for minor and major changes
 contact: 'Frontend Architecture / #support-frontend-architecture'
 
-image: drydock.workiva.net/workiva/dart2_base_image:1
+image: drydock.workiva.net/workiva/dart2_base_image:0.0.0-dart2.18.7gha3
 size: small
 timeout: 300
 
