@@ -26,4 +26,4 @@ jobs:
     uses: Workiva/gha-dart/.github/workflows/test-unit.yaml@v0.3.25
 
   semver-audit:
-    uses: Workiva/gha-dart/.github/workflows/semver-audit-dart.yaml@v0.3.25
+    uses: Workiva/gha-dart/.github/workflows/semver-audit-dart.yaml@v0.3.20
