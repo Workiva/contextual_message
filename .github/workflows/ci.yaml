@@ -28,15 +28,20 @@ jobs:
 
       - name: Install dependencies
         run: dart pub get
+        if: always() && steps.install.outcome == 'success'
 
-      - name: Validate, check format and analyze code
-        run: |
-          dart run dependency_validator
-          dart run dart_dev format --check
-          dart analyze
+      - name: Validate code
+        run: dart run dependency_validator
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Check format
+        run: dart run dart_dev format --check
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Analyze code
+        run: dart analyze
         if: always() && steps.install.outcome == 'success'
 
       - name: Build generated files
-        run: |
-          dart run build_runner build --delete-conflicting-outputs
+        run: dart run build_runner build --delete-conflicting-outputs
         if: always() && steps.install.outcome == 'success'
