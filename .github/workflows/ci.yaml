@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: [ large]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
