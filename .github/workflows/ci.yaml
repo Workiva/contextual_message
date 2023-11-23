@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: [self-hosted, large]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: Workiva/gha-setup-credentials@v1.0.25
