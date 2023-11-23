@@ -27,7 +27,7 @@ jobs:
         run: dart --version
 
       - name: Install dependencies
-        uses: dart pub get
+        run: dart pub get
 
       - name: Validate, check format and analyze code
         run: |
