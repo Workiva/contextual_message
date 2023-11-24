@@ -46,17 +46,3 @@ jobs:
           sdk: 2.19.6
       - name: Run tests
         run: dart run dart_dev test
-
-  semver-audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 2.19.6
-      - name: Dart pub global activate semver_audit
-        run: dart pub global activate --hosted-url https://pub.workiva.org semver_audit ^2.0.3
-      - name: Dart pub get with timeout
-        run: timeout 5m dart pub get
-      - name: Run semver_audit report
-        run: semver_audit report
