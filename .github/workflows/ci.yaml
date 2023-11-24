@@ -37,22 +37,7 @@ jobs:
       - name: Build generated files
         run: dart run build_runner build --delete-conflicting-outputs
 
-  unit-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 2.19.6
-      - name: Run tests
-        run: dart run dart_dev test
-      - name: Upload test reports
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-reports
-          path: /testing/test-reports
-
-  unit-tests-ddc:
+  test_ddc:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -64,7 +49,8 @@ jobs:
         run: dart pub get --no-precompile
 
       - name: Run tests (DDC)
-        run: dart run build_runner test -- --file-reporter json:reports/2.19.6/ddc/test-results.json
+        run: dart run build_runner test -- --file-reporter json:reports/ddc/test-results.json
+        if: always() && steps.install.outcome == 'success'
 
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v2
@@ -73,10 +59,24 @@ jobs:
           name: ddc-test-results
           path: reports/ddc/test-results.json
 
-      - name: Report Unit Test Results
-        uses: dorny/test-reporter@refs/tags/v1.6.0
+  test_dart2js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.6
+
+      - name: Install dependencies
+        run: dart pub get --no-precompile
+
+      - name: Run tests (dart2js)
+        run: dart run build_runner test -r -- --file-reporter json:reports/dart2js/test-results.json
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Upload Unit Test Results
+        uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Unit Test Results (ddc)
-          path: 'reports/ddc/test-results.json'
-          reporter: dart-json
+          name: dart2js-test-results
+          path: reports/dart2js/test-results.json
