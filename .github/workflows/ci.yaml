@@ -46,3 +46,8 @@ jobs:
           sdk: 2.19.6
       - name: Run tests
         run: dart run dart_dev test
+      - name: Upload test reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: /testing/test-reports
