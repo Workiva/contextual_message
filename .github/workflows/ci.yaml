@@ -50,11 +50,9 @@ jobs:
 
       - name: Run tests (DDC)
         run: dart run build_runner test -- --file-reporter json:reports/ddc/test-results.json
-        if: always() && steps.install.outcome == 'success'
 
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v2
-        if: always()
         with:
           name: ddc-test-results
           path: reports/ddc/test-results.json
@@ -72,11 +70,9 @@ jobs:
 
       - name: Run tests (dart2js)
         run: dart run build_runner test -r -- --file-reporter json:reports/dart2js/test-results.json
-        if: always() && steps.install.outcome == 'success'
 
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v2
-        if: always()
         with:
           name: dart2js-test-results
           path: reports/dart2js/test-results.json
