@@ -37,11 +37,32 @@ jobs:
       - name: Build generated files
         run: dart run build_runner build --delete-conflicting-outputs
 
-  unit-tests:
+  unit-tests-ddc:
     runs-on: ubuntu-latest
+    matrix:
+      sdk: [ 2.19.6 ]
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 2.19.6
-      - uses: Workiva/gha-upload-test-reports@v1.0.14
+          sdk: ${{ matrix.sdk }}
+      - name: Install dependencies
+        run: dart pub get --no-precompile
+      - name: Run tests (DDC)
+        run: dart run build_runner test -- --file-reporter json:reports/${{ matrix.sdk }}/ddc/test-results.json
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Upload Unit Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ steps.install.outcome == 'success' && (success() || failure()) }} # run this step even if previous step failed, but not if it was skipped
+        with:
+          name: ddc-test-results@${{ matrix.sdk }}
+          path: reports/${{ matrix.sdk }}/ddc/test-results.json
+
+      - name: Report Unit Test Results
+        uses: dorny/test-reporter@v1
+        if: ${{ always() && steps.install.outcome == 'success' }}
+        with:
+          name: Unit Test Results (ddc - ${{ matrix.sdk }})
+          path: 'reports/${{ matrix.sdk }}/ddc/test-results.json'
+          reporter: dart-json
