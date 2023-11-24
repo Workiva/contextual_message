@@ -44,5 +44,4 @@ jobs:
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: 2.19.6
-      - name: Run tests
-        run: dart run dart_dev test
+      - uses: Workiva/gha-upload-test-reports@v1.0.14
