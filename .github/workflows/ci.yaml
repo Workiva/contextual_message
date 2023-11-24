@@ -37,31 +37,12 @@ jobs:
       - name: Build generated files
         run: dart run build_runner build --delete-conflicting-outputs
 
-  unit-tests-ddc:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: 2.19.6
-
-      - name: Install dependencies
-        run: dart pub get --no-precompile
-
-      - name: Run tests (DDC)
-        run: dart run build_runner test -- --file-reporter json:reports/2.19.6/ddc/test-results.json
-
-      - name: Upload Unit Test Results
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: ddc-test-results
-          path: reports/ddc/test-results.json
-
-      - name: Report Unit Test Results
-        uses: dorny/test-reporter@refs/tags/v1.6.0
-        if: always()
-        with:
-          name: Unit Test Results (ddc)
-          path: 'reports/ddc/test-results.json'
-          reporter: dart-json
+      - name: Run tests
+        run: dart run dart_dev test
