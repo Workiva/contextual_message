@@ -39,30 +39,29 @@ jobs:
 
   unit-tests-ddc:
     runs-on: ubuntu-latest
-    matrix:
-      sdk: [ 2.19.6 ]
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: ${{ matrix.sdk }}
+          sdk: 2.19.6
+
       - name: Install dependencies
         run: dart pub get --no-precompile
+
       - name: Run tests (DDC)
-        run: dart run build_runner test -- --file-reporter json:reports/${{ matrix.sdk }}/ddc/test-results.json
-        if: always() && steps.install.outcome == 'success'
+        run: dart run build_runner test -- --file-reporter json:reports/2.19.6/ddc/test-results.json
 
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v2
-        if: ${{ steps.install.outcome == 'success' && (success() || failure()) }} # run this step even if previous step failed, but not if it was skipped
+        if: always()
         with:
-          name: ddc-test-results@${{ matrix.sdk }}
-          path: reports/${{ matrix.sdk }}/ddc/test-results.json
+          name: ddc-test-results
+          path: reports/ddc/test-results.json
 
       - name: Report Unit Test Results
         uses: dorny/test-reporter@v1
-        if: ${{ always() && steps.install.outcome == 'success' }}
+        if: always()
         with:
-          name: Unit Test Results (ddc - ${{ matrix.sdk }})
-          path: 'reports/${{ matrix.sdk }}/ddc/test-results.json'
+          name: Unit Test Results (ddc)
+          path: 'reports/ddc/test-results.json'
           reporter: dart-json
