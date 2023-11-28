@@ -1,63 +1,12 @@
-name: standard-dart-checks
-description: Quality checks (analyze, format, dependency validator)
-contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart2_base_image:2
-size: large
-timeout: eternal
+description: contextual_message_no-op
+image: drydock.workiva.net/workiva/skynet-images:bash_curl_alpinelatest-latest
 
-scripts:
-  - merge_branch.sh master
-  - timeout 5m dart pub get
-  - dart analyze
-  - dart run dart_dev format --check
-  - dart run dependency_validator
-
----
-
-name: semver-audit
-description: Runs the semver-audit tool to check for minor and major changes
-contact: 'Frontend Architecture / #support-frontend-architecture'
-
-image: drydock.workiva.net/workiva/dart2_base_image:2
 size: small
-timeout: 300
+timeout: short
+
+run:
+  on-tag: true
+  on-pull-request: true
 
 scripts:
-  - merge_branch.sh master
-  - dart pub global activate --hosted-url https://pub.workiva.org semver_audit ^2.0.3
-  - timeout 5m dart pub get
-  - semver_audit report
-
----
-
-name: unit-tests-dev
-description: Runs unit tests compiled with DDC
-contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart_unit_test_image:2
-size: large
-timeout: eternal
-
-artifacts: /testing/test-reports
-test-reports: /testing/test-reports
-
-scripts:
-  - merge_branch.sh master
-  - timeout 5m dart pub get
-  - dart run dart_dev test --xunit
-
----
-
-name: unit-tests-release
-description: Runs unit tests compiled with dart2js
-contact: 'Frontend Architecture / #support-frontend-architecture'
-image: drydock.workiva.net/workiva/dart_unit_test_image:2
-size: large
-timeout: eternal
-
-artifacts: /testing/test-reports
-test-reports: /testing/test-reports
-
-scripts:
-  - merge_branch.sh master
-  - timeout 5m dart pub get
-  - dart run dart_dev test --xunit --release
+  - echo "no-op, tests run in gha"

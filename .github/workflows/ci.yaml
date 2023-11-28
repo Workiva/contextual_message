@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - _integration/**/*
+      - test_consume_workiva/**
+    tags:
+      - '**'
+
+jobs:
+  standard-dart-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.6
+
+      - name: Print Dart SDK version
+        run: dart --version
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Validate code
+        run: dart run dependency_validator
+
+      - name: Check format
+        run: dart run dart_dev format --check
+
+      - name: Analyze code
+        run: dart run dart_dev analyze
+
+  test-ddc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.6
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Run tests (DDC)
+        run: dart run build_runner test -- --file-reporter json:reports/ddc/test-results.json
+
+      - name: Upload Unit Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: ddc-test-results
+          path: reports/ddc/test-results.json
+
+  test-dart2js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 2.19.6
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Run tests (dart2js)
+        run: dart run build_runner test -r -- --file-reporter json:reports/dart2js/test-results.json
+
+      - name: Upload Unit Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: dart2js-test-results
+          path: reports/dart2js/test-results.json
