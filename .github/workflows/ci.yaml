@@ -34,7 +34,7 @@ jobs:
       - name: Analyze code
         run: dart run dart_dev analyze
 
-  test_ddc:
+  test-ddc:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -54,7 +54,7 @@ jobs:
           name: ddc-test-results
           path: reports/ddc/test-results.json
 
-  test_dart2js:
+  test-dart2js:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
