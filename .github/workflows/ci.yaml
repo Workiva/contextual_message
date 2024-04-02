@@ -10,6 +10,11 @@ on:
     tags:
       - '**'
 
+permissions:
+  pull-requests: write
+  contents: write
+  id-token: write
+
 jobs:
   standard-dart-checks:
     runs-on: ubuntu-latest
