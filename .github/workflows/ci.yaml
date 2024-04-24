@@ -10,11 +10,6 @@ on:
     tags:
       - '**'
 
-permissions:
-  pull-requests: write
-  contents: write
-  id-token: write
-
 jobs:
   standard-dart-checks:
     runs-on: ubuntu-latest
@@ -24,13 +19,9 @@ jobs:
         with:
           sdk: 2.19.6
 
-      - name: Print Dart SDK version
-        run: dart --version
+      - run: dart pub get
 
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Validate code
+      - name: Validate dependencies
         run: dart run dependency_validator
 
       - name: Check format
@@ -51,18 +42,8 @@ jobs:
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: 2.19.6
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Run tests (DDC)
-        run: dart run build_runner test -- --file-reporter json:reports/ddc/test-results.json
-
-      - name: Upload Unit Test Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: ddc-test-results
-          path: reports/ddc/test-results.json
+      - run: dart pub get
+      - run: dart run build_runner test
 
   test-dart2js:
     runs-on: ubuntu-latest
@@ -71,15 +52,5 @@ jobs:
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: 2.19.6
-
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Run tests (dart2js)
-        run: dart run build_runner test -r -- --file-reporter json:reports/dart2js/test-results.json
-
-      - name: Upload Unit Test Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: dart2js-test-results
-          path: reports/dart2js/test-results.json
+      - run: dart pub get
+      - run: dart run build_runner test -r
