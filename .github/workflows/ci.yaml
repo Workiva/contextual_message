@@ -10,6 +10,9 @@ on:
     tags:
       - '**'
 
+permissions:
+  contents: write
+  
 jobs:
   standard-dart-checks:
     runs-on: ubuntu-latest
